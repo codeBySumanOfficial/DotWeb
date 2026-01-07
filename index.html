@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DotWeb IDE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header with Logo Only -->
+        <header class="app-header">
+            <div class="logo">
+                <i class="fas fa-cube"></i>
+                <h1>DotWeb IDE</h1>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-icon" id="theme-toggle" title="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="btn btn-icon" id="fullscreen" title="Fullscreen">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Editor Panel -->
+            <div class="panel editor-panel active">
+                <div class="panel-toolbar">
+                    <div class="file-info">
+                        <i class="fas fa-file-code"></i>
+                        <input type="text" id="filename" value="app.web" placeholder="filename.web">
+                        <span class="file-status" id="file-status">saved</span>
+                    </div>
+                    <div class="toolbar-actions">
+                        <button class="btn btn-secondary" id="new-file" title="New File">
+                            <i class="fas fa-file"></i> New
+                        </button>
+                        <button class="btn btn-secondary" id="load-file" title="Open File">
+                            <i class="fas fa-folder-open"></i> Open
+                        </button>
+                        <button class="btn btn-primary" id="export-code" title="Export .web File">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                        <button class="btn btn-success" id="run">
+                            <i class="fas fa-play"></i> Run
+                        </button>
+                    </div>
+                </div>
+
+                <div class="editor-container">
+                    <div class="editor-line-numbers" id="line-numbers">
+                        <div class="line-numbers-content">1</div>
+                    </div>
+                    <div class="editor-content">
+                        <div class="code-highlight" id="highlight"></div>
+                        <textarea id="editor" spellcheck="false" autofocus></textarea>
+                    </div>
+                </div>
+
+                <div class="editor-status">
+                    <div class="status-item">
+                        <i class="fas fa-code"></i>
+                        <span id="syntax-status">DotWeb</span>
+                    </div>
+                    <div class="status-item">
+                        <i class="fas fa-font"></i>
+                        <span id="char-count">0</span>
+                    </div>
+                    <div class="status-item">
+                        <i class="fas fa-bars"></i>
+                        <span id="line-count">1</span>
+                    </div>
+                    <div class="status-item">
+                        <i class="fas fa-cube"></i>
+                        <span id="component-count">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview Panel -->
+            <div class="panel preview-panel">
+                <div class="panel-toolbar">
+                    
+                    <div class="toolbar-actions">
+                        <div class="preview-info">
+                        <i class="fas fa-eye"></i>
+                        <span>Preview</span>
+                        
+                    </div>
+                    <div class="device-selector">
+                            <button class="device-btn active" data-device="mobile">
+                                <i class="fas fa-mobile-alt"></i>
+                            </button>
+                            <button class="device-btn" data-device="tablet">
+                                <i class="fas fa-tablet-alt"></i>
+                            </button>
+                            <button class="device-btn" data-device="desktop">
+                                <i class="fas fa-desktop"></i>
+                            </button>
+                        </div>
+                        <button class="btn btn-secondary" id="refresh" title="Refresh Preview">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                        <button class="btn btn-secondary" id="export-html" title="Export HTML">
+                            <i class="fas fa-file-export"></i> Export
+                        </button>
+                        <button class="btn btn-secondary" id="preview-fullscreen" title="Fullscreen Preview">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="preview-container">
+                    <div class="preview-wrapper" id="preview-wrapper">
+                        <div class="preview-frame-container">
+                            <div class="frame-controls">
+                                <div class="url-bar">
+                                    <i class="fas fa-lock"></i>
+                                    <span>dotweb://preview</span>
+                                </div>
+                                <button class="btn btn-xs" id="preview-reload">
+                                    <i class="fas fa-redo"></i>
+                                </button>
+                            </div>
+                            <iframe id="preview" sandbox="allow-scripts allow-same-origin"></iframe>
+                        </div>
+                    </div>
+
+                    <div class="console-container">
+                        <div class="console-header">
+                            <div class="console-title">
+                                <i class="fas fa-terminal"></i>
+                                <span>Console</span>
+                            </div>
+                            <div class="console-actions">
+                                <button class="btn btn-xs" id="console-clear" title="Clear Console">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                <button class="btn btn-xs" id="console-export" title="Export Console Logs">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="btn btn-xs" id="console-toggle">
+                                    <i class="fas fa-chevron-up"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="console-output" id="console-output">
+                            <div class="console-message info">
+                                <span class="timestamp">[00:00:00]</span>
+                                <span class="message">Console ready. Run your code to see output.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav">
+            <button class="nav-btn active" data-panel="editor">
+                <i class="fas fa-code"></i>
+                <span>Code</span>
+            </button>
+            <button class="nav-btn" data-panel="preview">
+                <i class="fas fa-eye"></i>
+                <span>Preview</span>
+            </button>
+            <button class="nav-btn" data-panel="console">
+                <i class="fas fa-terminal"></i>
+                <span>Console</span>
+            </button>
+        </div>
+
+        <!-- Hidden File Input -->
+        <input type="file" id="file-input" accept=".web,.dw" style="display: none;">
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>
